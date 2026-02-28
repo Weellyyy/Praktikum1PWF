@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <p>Nama: Wildan Zauhair Pratama</p>
                     <p>NIM: 20230140045</p>
-                    <p>Prodi: Teknik Informatika</p>
+                    <p>Prodi: Teknologi Informasi</p>
                     <p>Hobi: Main game</p>
                 </div>
             </div>
