@@ -1,91 +1,93 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
 
                     {{-- Header --}}
                     <div class="flex items-center justify-between mb-6">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
+                            <h2 class="text-2xl font-bold text-gray-800 tracking-tight">
                                 Product List
                             </h2>
-                            <p class="text-sm text-gray-400 mt-1">
+                            <p class="text-sm text-gray-500 mt-1">
                                 Manage your product inventory
                             </p>
                         </div>
 
-                        <a href="{{ route('product.create') }}"
-                           class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition duration-150 shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                                 fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M12 4v16m8-8H4" />
-                            </svg>
-                            Add Product
-                        </a>
+                        @can('manage-product')
+                            <a href="{{ route('product.create') }}"
+                               class="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-md transition duration-150 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                     fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 4v16m8-8H4" />
+                                </svg>
+                                Add Product
+                            </a>
+                        @endcan
                     </div>
 
                     {{-- Flash Message --}}
                     @if (session('success'))
-                        <div class="mb-4 px-4 py-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 rounded-lg text-sm">
+                        <div class="mb-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm">
                             {{ session('success') }}
                         </div>
                     @endif
 
                     {{-- Table --}}
-                    <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
-                            <thead class="bg-gray-50 dark:bg-gray-700">
+                    <div class="overflow-x-auto rounded-lg border border-gray-200">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider w-8">
+                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-8">
                                         #
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Name
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Quantity
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Price
                                     </th>
-                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Owner
                                     </th>
-                                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
 
-                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+                            <tbody class="bg-white divide-y divide-gray-100">
                                 @forelse ($products as $product)
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition duration-100">
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
+                                    <tr class="hover:bg-gray-50 transition duration-100">
+                                        <td class="px-6 py-4 text-gray-600">
                                             {{ $loop->iteration }}
                                         </td>
 
-                                        <td class="px-6 py-4 font-medium text-gray-800 dark:text-gray-100">
+                                        <td class="px-6 py-4 font-medium text-gray-800">
                                             {{ $product->name }}
                                         </td>
 
-                                        <td class="px-6 py-4 text-gray-600 dark:text-gray-300">
+                                        <td class="px-6 py-4 text-gray-700">
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                                 {{ $product->qty > 10 
-                                                    ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' 
-                                                    : 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300' }}">
+                                                    ? 'bg-green-100 text-green-800' 
+                                                    : 'bg-red-100 text-red-800' }}">
                                                 {{ $product->qty }}
                                             </span>
                                         </td>
 
-                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300 font-mono">
+                                        <td class="px-6 py-4 text-gray-700 font-mono">
                                             Rp {{ number_format($product->price, 0, ',', '.') }}
                                         </td>
 
-                                        <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
+                                        <td class="px-6 py-4 text-gray-600">
                                             {{ $product->user->name ?? '-' }}
                                         </td>
 
@@ -94,7 +96,7 @@
 
                                                 {{-- View --}}
                                                 <a href="{{ route('product.show', $product->id) }}"
-                                                   class="p-1.5 rounded-md text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition"
+                                                   class="p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition"
                                                    title="View">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                          class="h-4 w-4"
@@ -114,43 +116,48 @@
                                                 </a>
 
                                                 {{-- Edit --}}
-                                                <a href="{{ route('product.edit', $product) }}"
-                                                   class="p-1.5 rounded-md text-gray-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition"
-                                                   title="Edit">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                         class="h-4 w-4"
-                                                         fill="none"
-                                                         viewBox="0 0 24 24"
-                                                         stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                              stroke-width="2"
-                                                              d="M11 5h2m-1-1v2m0 12h2m-1 1v-2m-6-6H5m1-1H4m12 0h2m-1-1v2M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                                    </svg>
-                                                </a>
-
-                                                {{-- Delete --}}
-                                                <form action="{{ route('product.delete', $product->id) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('Delete this product?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                            class="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 transition"
-                                                            title="Delete">
+                                                @can('update', $product)
+                                                    <a href="{{ route('product.edit', $product) }}"
+                                                       class="p-1.5 rounded-md text-gray-500 hover:text-amber-600 hover:bg-amber-50 transition"
+                                                       title="Edit">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                              class="h-4 w-4"
                                                              fill="none"
                                                              viewBox="0 0 24 24"
                                                              stroke="currentColor">
-                                                            <path stroke-linecap="round"
-                                                                  stroke-linejoin="round"
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
                                                                   stroke-width="2"
-                                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862
+                                                                  d="M11 5h2m-1-1v2m0 12h2m-1 1v-2m-6-6H5m1-1H4m12 0h2m-1-1v2M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                        </svg>
+                                                    </a>
+                                                @endcan
+
+                                                {{-- Delete --}}
+                                                @can('delete', $product)
+                                                    <form action="{{ route('product.delete', $product->id) }}"
+                                                          method="POST"
+                                                          onsubmit="return confirm('Delete this product?')"
+                                                          style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                                class="p-1.5 rounded-md text-gray-500 hover:text-red-600 hover:bg-red-50 transition"
+                                                                title="Delete">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                 class="h-4 w-4"
+                                                                 fill="none"
+                                                                 viewBox="0 0 24 24"
+                                                                 stroke="currentColor">
+                                                                <path stroke-linecap="round"
+                                                                      stroke-linejoin="round"
+                                                                      stroke-width="2"
+                                                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862
                                                                      a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6
                                                                      M9 7h6m-1-3H10a1 1 0 00-1 1v2h6V5a1 1 0 00-1-1z" />
-                                                        </svg>
-                                                    </button>
-                                                </form>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                @endcan
 
                                             </div>
                                         </td>

@@ -47,6 +47,9 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+        // Check authorization dengan Policy
+        $this->authorize('update', $product);
+
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
             'qty' => 'sometimes|integer',
@@ -61,6 +64,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        // Check authorization dengan Policy
+        $this->authorize('update', $product);
+
         $users = User::orderBy('name')->get();
 
         return view('product.edit', compact('product', 'users'));
@@ -69,6 +75,9 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::findOrFail($id);
+
+        // Check authorization dengan Policy
+        $this->authorize('delete', $product);
 
         $product->delete();
 
