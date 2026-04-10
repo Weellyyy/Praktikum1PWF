@@ -50,8 +50,8 @@ class ProductPolicy
      */
     public function update(User $user, Product $product): bool
     {
-        // User biasa hanya bisa update produk miliknya sendiri
-        return $user->id === $product->user_id;
+        // Hanya admin yang bisa update produk
+        return $user->role === 'admin';
     }
 
     /**
@@ -59,8 +59,8 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product): bool
     {
-        // User biasa hanya bisa delete produk miliknya sendiri
-        return $user->id === $product->user_id;
+        // Hanya admin yang bisa delete produk
+        return $user->role === 'admin';
     }
 
     /**
