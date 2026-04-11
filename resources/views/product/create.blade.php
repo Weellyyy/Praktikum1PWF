@@ -154,8 +154,8 @@
                             </a>
 
                             <button type="submit"
-                                    class="px-8 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg shadow-md transition">
-                                ✓ Simpan Produk
+                                    class="px-6 py-2.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"">
+                                 Simpan Produk
                             </button>
                         </div>
 
