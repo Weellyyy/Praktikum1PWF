@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-8 text-gray-900">
 
                     {{-- Header --}}
                     <div class="flex items-center gap-3 mb-8">
@@ -21,14 +21,35 @@
                         </a>
 
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-800 tracking-tight">
-                                Add Product
-                            </h2>
-                            <p class="text-sm text-gray-600 mt-0.5">
-                                Fill in the details to add a new product
+                            <h2 class="text-3xl font-bold text-gray-900">Tambah Produk Baru</h2>
+                            <p class="text-sm text-gray-500 mt-1">
+                                Lengkapi informasi produk di bawah ini
                             </p>
                         </div>
                     </div>
+
+                    {{-- Validation Alert --}}
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-red-800">
+                                        Terdapat {{ count($errors) }} kesalahan validasi:
+                                    </p>
+                                    <ul class="mt-2 list-disc list-inside text-sm text-red-700 space-y-1">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     {{-- Form --}}
                     <form action="{{ route('product.store') }}" method="POST" class="space-y-6">
@@ -36,70 +57,83 @@
 
                         {{-- Name --}}
                         <div>
-                            <label for="name"
-                                   class="block text-sm font-medium text-gray-700 mb-1">
-                                Product Name <span class="text-red-500">*</span>
+                            <label for="name" class="block text-sm font-semibold text-gray-900 mb-2">
+                                Nama Produk
+                                <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}"
-                                   placeholder="e.g. Wireless Headphones"
-                                   class="w-full px-4 py-2.5 rounded-lg border text-sm
-                                   {{ $errors->has('name') ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white' }}
-                                   text-gray-900 placeholder-gray-400
-                                   focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition">
+                            <input type="text" 
+                                   id="name" 
+                                   name="name" 
+                                   value="{{ old('name') }}"
+                                   placeholder="Laptop, Mouse, Keyboard, dll"
+                                   class="block w-full px-4 py-2.5 border rounded-lg text-gray-900 placeholder-gray-400 text-sm
+                                   {{ $errors->has('name') ? 'border-red-500 bg-red-50 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500' }}
+                                   focus:outline-none focus:ring-1 focus:border-transparent transition">
                             @error('name')
-                                <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                            <p class="mt-1 text-xs text-gray-500">Maksimal 255 karakter</p>
                         </div>
 
                         {{-- Quantity & Price --}}
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-6">
 
                             <div>
-                                <label for="qty"
-                                       class="block text-sm font-medium text-gray-700 mb-1">
-                                    Quantity <span class="text-red-500">*</span>
+                                <label for="qty" class="block text-sm font-semibold text-gray-900 mb-2">
+                                    Jumlah (Qty)
+                                    <span class="text-red-500">*</span>
                                 </label>
-                                <input type="number" id="qty" name="qty" value="{{ old('qty') }}"
-                                       placeholder="0" min="0"
-                                       class="w-full px-4 py-2.5 rounded-lg border text-sm
-                                       {{ $errors->has('qty') ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white' }}
-                                       text-gray-900 placeholder-gray-400
-                                       focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition">
+                                <input type="number" 
+                                       id="qty" 
+                                       name="qty" 
+                                       value="{{ old('qty') }}"
+                                       placeholder="10"
+                                       min="1"
+                                       class="block w-full px-4 py-2.5 border rounded-lg text-gray-900 placeholder-gray-400 text-sm
+                                       {{ $errors->has('qty') ? 'border-red-500 bg-red-50 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500' }}
+                                       focus:outline-none focus:ring-1 focus:border-transparent transition">
                                 @error('qty')
-                                    <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
+                                <p class="mt-1 text-xs text-gray-500">Minimal 1 unit</p>
                             </div>
 
                             <div>
-                                <label for="price"
-                                       class="block text-sm font-medium text-gray-700 mb-1">
-                                    Price (Rp) <span class="text-red-500">*</span>
+                                <label for="price" class="block text-sm font-semibold text-gray-900 mb-2">
+                                    Harga Produk (Rp)
+                                    <span class="text-red-500">*</span>
                                 </label>
-                                <input type="number" id="price" name="price" value="{{ old('price') }}"
-                                       placeholder="0" min="0" step="0.01"
-                                       class="w-full px-4 py-2.5 rounded-lg border text-sm
-                                       {{ $errors->has('price') ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white' }}
-                                       text-gray-900 placeholder-gray-400
-                                       focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition">
+                                <input type="number" 
+                                       id="price" 
+                                       name="price" 
+                                       value="{{ old('price') }}"
+                                       placeholder="50000"
+                                       min="0" 
+                                       step="0.01"
+                                       class="block w-full px-4 py-2.5 border rounded-lg text-gray-900 placeholder-gray-400 text-sm
+                                       {{ $errors->has('price') ? 'border-red-500 bg-red-50 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500' }}
+                                       focus:outline-none focus:ring-1 focus:border-transparent transition">
                                 @error('price')
-                                    <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
+                                <p class="mt-1 text-xs text-gray-500">Tidak boleh negatif</p>
                             </div>
 
                         </div>
 
                         {{-- User --}}
                         <div>
-                            <label for="user_id"
-                                   class="block text-sm font-medium text-gray-700 mb-1">
-                                Owner <span class="text-red-500">*</span>
+                            <label for="user_id" class="block text-sm font-semibold text-gray-900 mb-2">
+                                Pemilik Produk
+                                <span class="text-red-500">*</span>
                             </label>
-                            <select id="user_id" name="user_id"
-                                    class="w-full px-4 py-2.5 rounded-lg border text-sm
-                                    {{ $errors->has('user_id') ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-white' }}
-                                    text-gray-900
-                                    focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition">
-                                <option value="">Select Owner</option>
+                            <select id="user_id" 
+                                    name="user_id"
+                                    class="block w-full px-4 py-2.5 border rounded-lg text-gray-900 text-sm appearance-none
+                                    {{ $errors->has('user_id') ? 'border-red-500 bg-red-50 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500' }}
+                                    focus:outline-none focus:ring-1 focus:border-transparent transition"
+                                    style="background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20fill=%22none%22%20viewBox=%220%200%2024%2024%22%20stroke=%22currentColor%22%3E%3Cpath%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%20stroke-width=%222%22%20d=%22M19%209l-7%207-7-7%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em; padding-right: 2.5rem;">
+                                <option value="">-- Pilih Pemilik --</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}"
                                         {{ old('user_id') == $user->id ? 'selected' : '' }}>
@@ -108,20 +142,20 @@
                                 @endforeach
                             </select>
                             @error('user_id')
-                                <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- Actions --}}
-                        <div class="flex items-center justify-end gap-3 pt-4">
+                        <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200 mt-8">
                             <a href="{{ route('product.index') }}"
-                               class="px-4 py-2.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
-                                Cancel
+                               class="px-6 py-2.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                                Batal
                             </a>
 
                             <button type="submit"
-                                    class="px-6 py-2.5 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg shadow-sm transition">
-                                Save Product
+                                    class="px-8 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg shadow-md transition">
+                                ✓ Simpan Produk
                             </button>
                         </div>
 
