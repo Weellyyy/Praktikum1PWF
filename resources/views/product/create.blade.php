@@ -98,6 +98,30 @@
 
                         </div>
 
+                        {{-- Kategori --}}
+                        <div>
+                            <label for="kategori_id" class="block text-sm font-semibold text-gray-900 mb-2">
+                                Kategori Produk
+                            </label>
+                            <select id="kategori_id" 
+                                    name="kategori_id"
+                                    class="block w-full px-4 py-2.5 border rounded-lg text-gray-900 text-sm appearance-none
+                                    {{ $errors->has('kategori_id') ? 'border-red-500 bg-red-50 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500' }}
+                                    focus:outline-none focus:ring-1 focus:border-transparent transition"
+                                    style="background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20fill=%22none%22%20viewBox=%220%200%2024%2024%22%20stroke=%22currentColor%22%3E%3Cpath%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%20stroke-width=%222%22%20d=%22M19%209l-7%207-7-7%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25em; padding-right: 2.5rem;">
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach ($kategoris as $kategori)
+                                    <option value="{{ $kategori->id }}"
+                                        {{ old('kategori_id') == $kategori->id ? 'selected' : '' }}>
+                                        {{ $kategori->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('kategori_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         {{-- User --}}
                         <div>
                             <label for="user_id" class="block text-sm font-semibold text-gray-900 mb-2">

@@ -8,6 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'user_id',
+        'kategori_id',
         'name',
         'qty',
         'price',
@@ -20,6 +21,6 @@ class Product extends Model
 
     public function kategori()
     {
-        return $this->hasMany(Kategori::class);
+        return $this->belongsTo(Kategori::class);
     }
 }

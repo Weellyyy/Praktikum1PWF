@@ -26,6 +26,7 @@ class UpdateProductRequest extends FormRequest
             'qty' => 'sometimes|integer|min:1',
             'price' => 'sometimes|numeric|min:0',
             'user_id' => 'sometimes|exists:users,id',
+            'kategori_id' => 'nullable|exists:kategoris,id',
         ];
     }
 
@@ -45,6 +46,8 @@ class UpdateProductRequest extends FormRequest
             'price.min' => 'Harga produk tidak boleh negatif.',
 
             'user_id.exists' => 'User yang dipilih tidak ditemukan.',
+
+            'kategori_id.exists' => 'Kategori yang dipilih tidak ditemukan.',
         ];
     }
 }

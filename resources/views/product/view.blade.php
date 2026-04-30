@@ -45,7 +45,7 @@
 
                         {{-- Quantity --}}
                         <div class="flex items-center px-6 py-4">
-                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Quantity</div>
+                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Quantity :</div>
                             <div>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                     {{ $product->qty > 10
@@ -58,7 +58,7 @@
 
                         {{-- Price --}}
                         <div class="flex items-center px-6 py-4">
-                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Price</div>
+                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Price : </div>
                             <div class="text-sm font-mono font-medium text-gray-900">
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             </div>
@@ -66,12 +66,20 @@
 
                         {{-- Owner --}}
                         <div class="flex items-center px-6 py-4">
-                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Owner</div>
+                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Owner :</div>
                             <div class="flex items-center gap-2">
                                 <div class="h-7 w-7 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 text-xs font-bold uppercase">
                                     {{ substr($product->user->name ?? '?', 0, 1) }}
                                 </div>
                                 <span class="text-sm text-gray-700">{{ $product->user->name ?? '-' }}</span>
+                            </div>
+                        </div>
+
+                        {{-- Category --}}
+                        <div class="flex items-center px-6 py-4">
+                            <div class="w-32 shrink-0 text-sm font-medium text-gray-700">Category :</div>
+                            <div class="text-sm text-gray-700">
+                                {{ $product->kategori->name ?? '-' }}
                             </div>
                         </div>
 
